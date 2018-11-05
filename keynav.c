@@ -275,9 +275,15 @@ int parse_keycode(char *keyseq) {
     /* At this point, we'll be returning 0 for keycode */
   } else {
     /* Valid keysym */
-    keycode = XKeysymToKeycode(dpy, keysym);
-    if (keycode == 0) {
-      fprintf(stderr, "Unable to lookup keycode for %s\n", last_tok);
+    /* printf("keysym = %04x\n",keysym); */
+    if ((keysym == 0xff1b) || (keysym == 0xffe5)){
+      keycode = 66;
+    }
+    else {
+      keycode = XKeysymToKeycode(dpy, keysym);
+      if (keycode == 0) {
+        fprintf(stderr, "Unable to lookup keycode for %s\n", last_tok);
+      }
     }
   }
 
